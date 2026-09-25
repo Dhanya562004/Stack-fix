@@ -558,19 +558,32 @@ with st.sidebar:
     # 2. API Key Configuration
     st.markdown("### 🔑 AI Engine Key")
     
-    # Check environment variable first
-    env_gemini_key = os.getenv("GEMINI_API_KEY", "")
-    env_openai_key = os.getenv("OPENAI_API_KEY", "")
+    def get_key_from_secrets_or_env(key_name: str) -> str:
+        try:
+            if key_name in st.secrets:
+                return str(st.secrets[key_name])
+            if key_name.lower() in st.secrets:
+                return str(st.secrets[key_name.lower()])
+            if "GEMINI_KEY" in st.secrets and "GEMINI" in key_name:
+                return str(st.secrets["GEMINI_KEY"])
+            if "OPENAI_KEY" in st.secrets and "OPENAI" in key_name:
+                return str(st.secrets["OPENAI_KEY"])
+        except Exception:
+            pass
+        return os.getenv(key_name, "")
+
+    env_gemini_key = get_key_from_secrets_or_env("GEMINI_API_KEY")
+    env_openai_key = get_key_from_secrets_or_env("OPENAI_API_KEY")
 
     api_provider = st.selectbox("LLM Provider", ["Gemini", "OpenAI", "Offline Rule Engine (No Key Required)"])
     
     user_api_key = ""
     if api_provider == "Gemini":
         default_key = env_gemini_key
-        user_api_key = st.text_input("Gemini API Key", value=default_key, type="password", help="Enter your Gemini API key or set GEMINI_API_KEY in environment.")
+        user_api_key = st.text_input("Gemini API Key", value=default_key, type="password", help="Enter your Gemini API key or configure in .streamlit/secrets.toml")
     elif api_provider == "OpenAI":
         default_key = env_openai_key
-        user_api_key = st.text_input("OpenAI API Key", value=default_key, type="password", help="Enter your OpenAI API key or set OPENAI_API_KEY in environment.")
+        user_api_key = st.text_input("OpenAI API Key", value=default_key, type="password", help="Enter your OpenAI API key or configure in .streamlit/secrets.toml")
 
     # Status indicator badge
     if api_provider != "Offline Rule Engine (No Key Required)" and user_api_key.strip():
