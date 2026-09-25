@@ -1,46 +1,78 @@
-# ⚡ AI Debug Agent (StackFix)
+# StackFix AI — AI Debugging Agent for Developers
 
-> **Tagline:** Paste your error. Get the fix instantly.
+Paste your error. Get the fix instantly.
 
-AI Debug Agent is a fast, production-quality developer web app built with **Streamlit** and powered by **LLMs (Gemini / OpenAI)** and a custom **Smart Offline Rule Engine**. It analyzes programming errors, stack traces, and code snippets to deliver immediate issue explanations, root cause identification, actionable fix suggestions, and corrected code blocks.
-
----
-
-## 🚀 Features
-
-- **🧠 Deep Error Analysis:**
-  - **Issue Explanation:** Clear, beginner-friendly explanation of what broke.
-  - **Root Cause:** Technical explanation of why the failure occurred.
-  - **Fix Suggestion:** Step-by-step actionable instructions to resolve it.
-  - **Corrected Code:** Formatted, production-ready replacement snippet.
-  - **Confidence Level:** High 🟢 / Medium 🟡 / Low 🔴 visual meter.
-
-- **🎭 Dual Tone Mode:**
-  - **Normal Mode 😇:** Clear, professional senior-engineer mentorship.
-  - **Savage Mode 😈:** Witty, funny developer roast with accurate fixes ("This code runs on hope and broken assumptions 💀").
-
-- **⚙️ Dual AI Engine Support:**
-  - **LLM Mode:** Powered by **Gemini 2.5/1.5** or **GPT-4o-mini**.
-  - **Offline Rule Engine:** Custom pattern-recognition fallback that works 100% locally **without an API key**!
-
-- **⚡ Productivity Bonus Features:**
-  - **Preset Example Loader:** Instant sample errors for Python NameError, JS TypeError, Async/Await Promise bugs, Indentation Errors, etc.
-  - **Session History:** Replay and inspect recent fixes from your current session.
-  - **Side-by-Side Diff View:** Compare original broken code against the fixed code.
-  - **Copy to Clipboard:** Native 1-click code copying.
+## Live Demo
+[Explore StackFix AI Live App](https://stack-fix-kp5papbbbthu5pf8uzvkpz.streamlit.app/)
 
 ---
 
-## 🛠️ Tech Stack
-
-- **Framework:** Streamlit (Python)
-- **Styling:** Custom Glassmorphic Dark CSS Design System
-- **AI Integrations:** `google-genai`, `google-generativeai`, `openai`
-- **Pattern Matching Engine:** Python Regex & Sequence Matcher (`difflib`)
+## Overview
+StackFix AI is a production-grade developer tool designed to analyze programming errors, runtime exceptions, and broken code snippets. It combines Large Language Models (Gemini 1.5 Pro) with a deterministic fallback engine to provide clear issue explanations, exact root causes, actionable fix steps, and corrected code.
 
 ---
 
-## 📦 Quick Start & Installation
+## Features
+- **Comprehensive Error Diagnostics:** Accepts raw error stack traces, compiler logs, or broken code snippets.
+- **Clear Issue Explanation:** Translates cryptic error messages into easy-to-understand developer concepts.
+- **Root Cause Analysis:** Pinpoints the exact line and logic flaw causing the breakdown.
+- **Actionable Fix Guidance:** Provides step-by-step instructions to resolve the defect.
+- **Corrected Code Generation:** Produces clean, production-ready replacement code.
+- **Dual Engine Architecture:** Operates using Google Gemini LLM when an API key is available, with seamless fallback to a local rule-based engine when offline.
+
+---
+
+## How It Works
+1. **Input Submission:** The developer pastes an error stack trace or code snippet into the interface.
+2. **AI Analysis:** If an API key is present, the app calls Gemini 1.5 Pro to perform deep contextual analysis.
+3. **Fallback Resolution:** If running without an API key, the system routes the query to an intelligent rule-based pattern matching engine.
+4. **Structured Output:** The user receives a structured breakdown covering Issue Explanation, Root Cause, Fix Suggestions, and Corrected Code.
+
+---
+
+## Tech Stack
+- **Language:** Python
+- **Frontend / Framework:** Streamlit
+- **AI Integration:** Google Gemini API (`gemini-1.5-pro`) & OpenAI API
+- **Fallback Engine:** Deterministic Regex & Sequence Matching Engine (`difflib`, `re`)
+
+---
+
+## Example
+
+### Input Code
+```python
+name = "Alex"
+print("Hello " + username)
+```
+
+### Analysis & Output
+
+**Issue Explanation:**  
+The variable `username` is used but not defined.
+
+**Root Cause:**  
+You defined `name` on assignment, but used `username` in the print statement.
+
+**Fix Suggestion:**  
+Use the correct variable name (`name`) or define `username` before use.
+
+**Corrected Code:**  
+```python
+name = "Alex"
+print("Hello " + name)
+```
+
+---
+
+## Why This Project Matters
+- **Accelerates Developer Workflow:** Cuts down debugging time by immediately explaining stack traces and syntax failures.
+- **Demonstrates System Reliability:** Features robust fallback logic to ensure 100% uptime even when external APIs are unreachable.
+- **Highlights Product Engineering:** Combines LLM capabilities with clean UI/UX and practical utility.
+
+---
+
+## Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
@@ -48,7 +80,7 @@ git clone https://github.com/Dhanya562004/Stack-fix.git
 cd Stack-fix
 ```
 
-### 2. Set Up Virtual Environment & Install Dependencies
+### 2. Install Dependencies
 ```bash
 python -m venv venv
 # On Windows:
@@ -59,16 +91,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. (Optional) Configure Environment Variables
-Create a `.env` file from `.env.example`:
-```bash
-GEMINI_API_KEY=your_gemini_api_key_here
-# or
-OPENAI_API_KEY=your_openai_api_key_here
-```
-*Note: The app runs completely fine without any API key using the built-in Smart Rule Engine!*
-
-### 4. Run the Streamlit Application
+### 3. Run the Application
 ```bash
 streamlit run app.py
 ```
@@ -77,12 +100,7 @@ Open `http://localhost:8501` in your browser.
 
 ---
 
-## 🎨 UI Preview & Aesthetics
-
-Designed with a modern dark mode, glassmorphism cards, vibrant status badges, responsive layout, and smooth animations built specifically for daily developer use.
-
----
-
-## 📝 License
-
-Distributed under the MIT License. See `LICENSE` for details.
+## Future Improvements
+- Multi-language support expansion (Go, Rust, SQL, C#).
+- GitHub repository integration for context-aware multi-file debugging.
+- Advanced static analysis integration (AST analysis & linting tools).
