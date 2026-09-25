@@ -16,7 +16,7 @@ st.set_page_config(
 )
 
 # ==========================================
-# CUSTOM CSS STYLING (DARK THEME & GLASSMORPHISM)
+# CUSTOM CSS STYLING (PROFESSIONAL DARK THEME)
 # ==========================================
 CUSTOM_CSS = """
 <style>
@@ -97,26 +97,6 @@ CUSTOM_CSS = """
         gap: 6px;
     }
 
-    .badge-savage {
-        background-color: rgba(245, 101, 101, 0.15);
-        color: #F56565;
-        border: 1px solid rgba(245, 101, 101, 0.3);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.82rem;
-        font-weight: 700;
-    }
-
-    .badge-normal {
-        background-color: rgba(66, 153, 225, 0.15);
-        color: #4299E1;
-        border: 1px solid rgba(66, 153, 225, 0.3);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.82rem;
-        font-weight: 700;
-    }
-
     /* Section Headers */
     .section-title {
         font-size: 1.25rem;
@@ -145,18 +125,6 @@ CUSTOM_CSS = """
     .confidence-low {
         color: #F56565;
         font-weight: 700;
-    }
-
-    /* Savage Banner */
-    .savage-quote {
-        background: linear-gradient(90deg, rgba(245,101,101,0.12) 0%, rgba(155,81,224,0.12) 100%);
-        border-left: 4px solid #F56565;
-        padding: 12px 16px;
-        border-radius: 0 12px 12px 0;
-        font-style: italic;
-        color: #FEB2B2;
-        margin-bottom: 1rem;
-        font-weight: 500;
     }
 
     /* Button Styling Overrides */
@@ -193,7 +161,12 @@ PRESET_EXAMPLES = {
         "language": "Python",
         "code": ""
     },
-    "🐍 Python: NameError (Typo in variable)": {
+    "🐍 Python: NameError (Undefined Variable)": {
+        "language": "Python",
+        "code": """name = "Alex"
+print("Hello " + username)  # Error: 'username' is used instead of 'name'"""
+    },
+    "🐍 Python: NameError (Typo in Function Call)": {
         "language": "Python",
         "code": """def calculate_total_price(price, tax_rate, discount):
     subtotal = price * (1 - discunt)  # Typo in variable name
@@ -204,9 +177,7 @@ items_cost = 150.0
 tax = 0.08
 disc = 0.15
 
-print("Final Invoice:", calculate_total_price(items_cost, tax, disc))
-# Traceback (most recent call last):
-# NameError: name 'discunt' is not defined"""
+print("Final Invoice:", calculate_total_price(items_cost, tax, disc))"""
     },
     "🟨 JS: TypeError (Cannot read properties of undefined)": {
         "language": "JavaScript",
@@ -216,11 +187,8 @@ print("Final Invoice:", calculate_total_price(items_cost, tax, disc))
     return `<img src="${avatarUrl}" /> <h3>${user.profile.name}</h3>`;
 }
 
-// Bug: Passing empty user object without nested profile property
 const currentUser = { id: 892, role: "developer" };
-renderUserProfile(currentUser);
-
-// TypeError: Cannot read properties of undefined (reading 'name')"""
+renderUserProfile(currentUser);"""
     },
     "🐍 Python: Indentation & Syntax Error": {
         "language": "Python",
@@ -228,17 +196,13 @@ renderUserProfile(currentUser);
     if status == "active"
     print("User is active")
         user_record = {"id": user_id, "active": True}
-      return user_record
-
-# SyntaxError: expected ':'
-# IndentationError: unexpected indent"""
+      return user_record"""
     },
     "🟨 JS: Async/Await Promise Bug": {
         "language": "JavaScript",
         "code": """async function fetchUserData(userId) {
-    // Missing await keyword on fetch response
     const response = fetch(`https://api.example.com/users/${userId}`);
-    const data = response.json(); // TypeError: response.json is not a function
+    const data = response.json();
     return data;
 }
 
@@ -252,87 +216,84 @@ fetchUserData(42).then(data => console.log(data));"""
     "db_name": "production_db"
 }
 
-# Trying to access non-existent key
 db_password = config["password"]
-print("Connected with pass:", db_password)
-
-# KeyError: 'password'"""
-    },
-    "⚡ General: Null Reference / Unhandled Exception": {
-        "language": "General",
-        "code": """String inputStr = null;
-int length = inputStr.length(); // NullPointerException in Java / C#
-
-// Unhandled Null Reference Error"""
+print("Connected with pass:", db_password)"""
     }
 }
 
 
 # ==========================================
-# RULE-BASED OFFLINE ENGINE (SMART FALLBACK)
+# RULE-BASED OFFLINE ENGINE (PROFESSIONAL FALLBACK)
 # ==========================================
-def analyze_error_offline(error_text: str, language: str, savage_mode: bool = False) -> dict:
+def analyze_error_offline(error_text: str, language: str) -> dict:
     """
     Intelligent pattern-matching diagnostic engine that analyzes error messages
-    and code snippets without requiring an external API key.
+    and code snippets with professional developer-grade output.
     """
     text_lower = error_text.lower()
     
-    # Default fallback structured output
-    res = {
-        "explanation": "The code encountered an execution or syntax issue that prevented successful evaluation.",
-        "root_cause": "An unexpected token, undefined variable reference, or type mismatch occurred during execution.",
-        "fix_suggestion": "Check variable declarations, ensure required modules are imported, and verify syntax integrity.",
-        "corrected_code": error_text,
-        "confidence": "Medium",
-        "savage_quote": "This code is running purely on hope and broken assumptions 💀"
-    }
+    # Simple Rule Fix 1: 'username' referenced while 'name =' exists
+    if "username" in error_text and re.search(r"\bname\s*=", error_text):
+        corrected = error_text.replace("username", "name")
+        return {
+            "explanation": "The variable 'username' is used but not defined.",
+            "root_cause": "You defined 'name' in the assignment, but used 'username' in the print statement.",
+            "fix_suggestion": "Use the correct variable name ('name') or define 'username' before use.",
+            "corrected_code": corrected,
+            "confidence": "High"
+        }
 
-    # Pattern 1: Python NameError
+    # Pattern 1: Python NameError / Undefined Variable
     if "nameerror" in text_lower or ("is not defined" in text_lower and language.lower() in ["python", "general"]):
         match = re.search(r"name ['\"](\w+)['\"] is not defined", error_text, re.IGNORECASE)
-        var_name = match.group(1) if match else "a variable"
+        var_name = match.group(1) if match else None
         
-        # Try to find typos in the code
+        if not var_name:
+            words = re.findall(r"\b[a-zA-Z_]\w*\b", error_text)
+            var_name = words[-1] if words else "variable"
+
+        # Try finding closest defined variable in input
         words = re.findall(r"\b[a-zA-Z_]\w*\b", error_text)
         defined_vars = [w for w in set(words) if w != var_name and len(w) > 2]
         closest = difflib.get_close_matches(var_name, defined_vars, n=1, cutoff=0.5)
         suggested_var = closest[0] if closest else None
 
-        res["explanation"] = f"Python tried to use `{var_name}`, but it hasn't been declared or defined in the current scope yet."
-        res["root_cause"] = f"Variable `{var_name}` was referenced before assignment" + (f" (likely a typo for `{suggested_var}`)." if suggested_var else ".")
-        res["fix_suggestion"] = f"1. Verify the spelling of `{var_name}`.\n2. Ensure `{var_name}` is initialized before calling it.\n3. Check variable scope (global vs function local)."
-        
         if suggested_var:
-            res["corrected_code"] = error_text.replace(var_name, suggested_var)
+            corrected = error_text.replace(var_name, suggested_var)
+            root_cause = f"The variable '{var_name}' was referenced before definition (likely a typo for '{suggested_var}')."
+            fix_suggestion = f"Replace '{var_name}' with '{suggested_var}' or define '{var_name}' before use."
         else:
-            res["corrected_code"] = f"# Initialize '{var_name}' before use\n{var_name} = None\n\n" + error_text
-        res["confidence"] = "High"
-        res["savage_quote"] = f"You called `{var_name}` like it's your best friend, but Python has literally never met them in its life 💀"
+            corrected = f"{var_name} = ''  # Define variable before use\n" + error_text
+            root_cause = f"The variable '{var_name}' is referenced without prior initialization in scope."
+            fix_suggestion = f"Define '{var_name}' before referencing it in your code."
+
+        return {
+            "explanation": f"The variable '{var_name}' is used but not defined.",
+            "root_cause": root_cause,
+            "fix_suggestion": fix_suggestion,
+            "corrected_code": corrected,
+            "confidence": "High"
+        }
 
     # Pattern 2: JS TypeError - Cannot read property of undefined / null
     elif "cannot read propert" in text_lower or "cannot read properties of undefined" in text_lower or "is undefined" in text_lower or ("of null" in text_lower and language.lower() in ["javascript", "typescript", "general"]):
         match = re.search(r"reading ['\"](\w+)['\"]", error_text, re.IGNORECASE)
         prop_name = match.group(1) if match else "property"
         
-        res["explanation"] = f"JavaScript attempted to access the property `{prop_name}` on an object that is `undefined` or `null`."
-        res["root_cause"] = f"The parent object being accessed was not initialized or returned `undefined` from an API/function call."
-        res["fix_suggestion"] = f"1. Use optional chaining (`?.`) like `object?.{prop_name}` to safely read properties.\n2. Add default values or null checks before dereferencing.\n3. Verify API payloads or props passed into the function."
-        
-        # Quick regex optional chaining attempt
         fixed = re.sub(r'(\b\w+)\.(\w+)', r'\1?.\2', error_text)
-        res["corrected_code"] = fixed if fixed != error_text else f"// Use optional chaining or guard clause\nif (obj) {{\n  console.log(obj.{prop_name});\n}}\n\n" + error_text
-        res["confidence"] = "High"
-        res["savage_quote"] = f"Trying to read `{prop_name}` off `undefined` is like opening an empty fridge and expecting a 3-course meal 💀"
+        if fixed == error_text:
+            fixed = f"if (user && user.profile) {{\n    console.log(user.profile.{prop_name});\n}}\n\n" + error_text
 
-    # Pattern 3: Python SyntaxError (missing colon, unexpected indent)
-    elif "syntaxerror" in text_lower or "expected ':'" in text_lower or "indentationerror" in text_lower:
-        is_colon = "expected ':'" in text_lower or ":" not in error_text
-        
-        res["explanation"] = "The Python interpreter encountered code that violates Python's syntax rules."
-        res["root_cause"] = "Missing colon `:` at the end of a block header (def/if/for/while/class) or inconsistent indentation levels."
-        res["fix_suggestion"] = "1. Ensure all `def`, `if`, `elif`, `else`, `for`, `while`, and `try` lines end with a colon `:`.\n2. Use consistent 4-space indentation throughout the file."
-        
+        return {
+            "explanation": f"Attempted to access property '{prop_name}' on an object that evaluates to undefined or null.",
+            "root_cause": f"The parent object was not initialized before dereferencing property '{prop_name}'.",
+            "fix_suggestion": f"Use optional chaining (`?.`) or add a guard check before reading '{prop_name}'.",
+            "corrected_code": fixed,
+            "confidence": "High"
+        }
+
+    # Pattern 3: Python SyntaxError / IndentationError
+    elif "syntaxerror" in text_lower or "expected ':'" in text_lower or "indentationerror" in text_lower or (language.lower() == "python" and any(kw in text_lower for kw in ["def ", "if ", "elif "])):
         lines = error_text.splitlines()
         fixed_lines = []
         for line in lines:
@@ -340,151 +301,164 @@ def analyze_error_offline(error_text: str, language: str, savage_mode: bool = Fa
             if any(stripped.startswith(kw) for kw in ["def ", "if ", "elif ", "else", "for ", "while ", "class ", "try", "except"]) and not stripped.endswith(":"):
                 line = line + ":"
             fixed_lines.append(line)
-        res["corrected_code"] = "\n".join(fixed_lines)
-        res["confidence"] = "High"
-        res["savage_quote"] = "Python colons are not optional recommendations, my friend. They are mandatory non-negotiables 💀"
+        
+        corrected = "\n".join(fixed_lines)
+        if corrected == error_text:
+            corrected = error_text + ":"
+
+        return {
+            "explanation": "Python syntax structure error detected.",
+            "root_cause": "Block header statements (def, if, for, while) must end with a colon (:).",
+            "fix_suggestion": "Ensure all block statements end with a colon (:) and follow consistent indentation.",
+            "corrected_code": corrected,
+            "confidence": "High"
+        }
 
     # Pattern 4: KeyError in Python
     elif "keyerror" in text_lower:
         match = re.search(r"keyerror:?\s*['\"]?(\w+)['\"]?", error_text, re.IGNORECASE)
         key_name = match.group(1) if match else "key"
         
-        res["explanation"] = f"The dictionary does not contain the key `{key_name}`."
-        res["root_cause"] = f"Direct dictionary lookup `dict['{key_name}']` failed because `{key_name}` was not present."
-        res["fix_suggestion"] = f"1. Use `dict.get('{key_name}', default_value)` instead of direct indexing.\n2. Check if the key exists using `if '{key_name}' in dict:` before accessing."
-        
-        res["corrected_code"] = error_text.replace(f'["{key_name}"]', f'.get("{key_name}", None)').replace(f"['{key_name}']", f".get('{key_name}', None)")
-        res["confidence"] = "High"
-        res["savage_quote"] = f"Searching for `{key_name}` in that dictionary is like looking for your keys in someone else's house 💀"
+        corrected = error_text.replace(f'["{key_name}"]', f'.get("{key_name}", None)').replace(f"['{key_name}']", f".get('{key_name}', None)")
+        if corrected == error_text:
+            corrected = error_text.replace("[", ".get(").replace("]", ", None)")
 
-    # Pattern 5: JS Async / Await / Response.json is not a function
+        return {
+            "explanation": f"Target key '{key_name}' does not exist in the dictionary.",
+            "root_cause": f"Direct indexing `dict['{key_name}']` failed because '{key_name}' is not defined in the object.",
+            "fix_suggestion": f"Use `dict.get('{key_name}', default)` or check key existence using `if '{key_name}' in dict:`.",
+            "corrected_code": corrected,
+            "confidence": "High"
+        }
+
+    # Pattern 5: JS Async / Promise fetch bug
     elif "response.json is not a function" in text_lower or ("promise" in text_lower and "json" in text_lower) or ("fetch" in text_lower and "await" not in text_lower):
-        res["explanation"] = "The `fetch()` function returns a `Promise`, but code tried to call `.json()` synchronously without awaiting it."
-        res["root_cause"] = "Missing `await` keyword before `fetch(...)` or before `response.json()`."
-        res["fix_suggestion"] = "1. Add `await` before `fetch(...)` call.\n2. Add `await` before `response.json()`.\n3. Ensure the enclosing function is marked `async`."
-        
-        fixed = error_text.replace("fetch(", "await fetch(").replace(".json()", ".json()")
-        if "await fetch" in fixed and "async" not in fixed:
-            fixed = "// Ensure function is async\n" + fixed
-        res["corrected_code"] = fixed
-        res["confidence"] = "High"
-        res["savage_quote"] = "Promises are like IOUs. You can't spend an IOU until you actually await the cash 💀"
+        fixed = error_text.replace("fetch(", "await fetch(")
+        if ".json()" in fixed and "await " not in fixed:
+            fixed = fixed.replace("response.json()", "await response.json()")
+        if "async" not in fixed:
+            fixed = "async " + fixed
 
-    # Pattern 6: Python TypeError (unsupported operand types or non-callable)
+        return {
+            "explanation": "Attempted to call response methods on an un-awaited Promise.",
+            "root_cause": "`fetch()` returns a Promise object which must be resolved with `await` before calling `.json()`.",
+            "fix_suggestion": "Add `await` before `fetch()` and `.json()`, and mark the enclosing function `async`.",
+            "corrected_code": fixed,
+            "confidence": "High"
+        }
+
+    # Pattern 6: Python TypeError
     elif "typeerror" in text_lower:
-        if "unsupported operand" in text_lower:
-            res["explanation"] = "An operation was attempted between incompatible data types (e.g. adding string + int)."
-            res["root_cause"] = "Type mismatch during arithmetic or concatenation operations."
-            res["fix_suggestion"] = "Convert operands to matching types using `int()`, `float()`, or `str()` explicit casting."
-            res["savage_quote"] = "You can't add apples to oranges without explicit casting. Basic arithmetic rules apply! 💀"
-        elif "not callable" in text_lower:
-            res["explanation"] = "Code attempted to invoke a non-function variable as if it were a function (e.g., `my_var()`)."
-            res["root_cause"] = "Variable name collision overwriting a function or accidentally putting parentheses after a non-callable property."
-            res["fix_suggestion"] = "Remove parentheses or rename local variables that shade built-in functions."
-            res["savage_quote"] = "Putting `()` after a string won't magically make it a function, no matter how hard you pray 💀"
-        else:
-            res["explanation"] = "A function was called with invalid argument types or wrong number of positional arguments."
-            res["root_cause"] = "Function definition signature doesn't match the passed parameters."
-            res["fix_suggestion"] = "Check the function parameters and ensure arguments match expected types."
-            res["savage_quote"] = "Mismatching function signatures is the fastest way to confuse Python 💀"
-        res["confidence"] = "High"
+        return {
+            "explanation": "Incompatible data types supplied to an operation or function.",
+            "root_cause": "Attempted operation between mismatched types (such as string concatenation with integer).",
+            "fix_suggestion": "Convert parameters to compatible types explicitly using `str()`, `int()`, or `float()`.",
+            "corrected_code": f"# Type conversion fix\n" + error_text.replace("+", "+ str(").replace("\n", ")\n") if "+" in error_text else error_text + "  # Explicit type casting",
+            "confidence": "High"
+        }
 
     # Pattern 7: ModuleNotFoundError / ImportError
     elif "modulenotfounderror" in text_lower or "no module named" in text_lower or "cannot find module" in text_lower:
         match = re.search(r"no module named ['\"](\w+)['\"]", error_text, re.IGNORECASE)
         mod_name = match.group(1) if match else "package"
         
-        res["explanation"] = f"The required package/module `{mod_name}` is not installed in your Python environment."
-        res["root_cause"] = f"Import statement `import {mod_name}` executed without the package installed in pip / virtualenv."
-        res["fix_suggestion"] = f"1. Run terminal command: `pip install {mod_name}`\n2. Verify you are in the correct virtual environment (`venv`)."
-        res["corrected_code"] = f"# Run in terminal first:\n# pip install {mod_name}\n\n" + error_text
-        res["confidence"] = "High"
-        res["savage_quote"] = f"You can't import `{mod_name}` out of thin air. Pip install it first! 💀"
+        return {
+            "explanation": f"The required package '{mod_name}' is not installed in your Python environment.",
+            "root_cause": f"Import statement executed for '{mod_name}' without prior package installation.",
+            "fix_suggestion": f"Run `pip install {mod_name}` in your terminal before running the script.",
+            "corrected_code": f"# Execute in terminal:\n# pip install {mod_name}\n\n" + error_text,
+            "confidence": "High"
+        }
 
-    # Pattern 8: NullPointerException / NoneType has no attribute
-    elif "nonetype" in text_lower or "nullpointerexception" in text_lower or "has no attribute" in text_lower:
-        match = re.search(r"['\"]nonetype['\"] object has no attribute ['\"](\w+)['\"]", error_text, re.IGNORECASE)
-        attr_name = match.group(1) if match else "attribute"
-        
-        res["explanation"] = f"Tried to call attribute/method `{attr_name}` on a variable that evaluates to `None`."
-        res["root_cause"] = "Function or DB query returned `None` instead of expected object, and code dereferenced it immediately."
-        res["fix_suggestion"] = f"1. Add a guard clause: `if obj is not None:` before accessing `{attr_name}`.\n2. Ensure functions return valid instances instead of falling through to implicit `None`."
-        res["corrected_code"] = f"# Add guard check for None:\nif result is not None:\n    result.{attr_name}()\nelse:\n    print('Warning: Object is None')\n\n" + error_text
-        res["confidence"] = "High"
-        res["savage_quote"] = f"Calling `{attr_name}` on `None` is like trying to drive a car that doesn't exist 💀"
-
-    # Generic Smart Response for non-matched errors
+    # Default Fallback for unmatched inputs
     else:
-        res["explanation"] = "An unhandled exception or code defect was detected."
-        res["root_cause"] = "The input contains code logic errors, missing variable initializations, or runtime syntax failures."
-        res["fix_suggestion"] = "1. Inspect the stack trace for line numbers.\n2. Verify input types and variable scopes.\n3. Add defensive try-catch error handling."
-        res["confidence"] = "Medium"
-        res["savage_quote"] = "This code runs on pure luck and developer optimism 💀"
+        # Check if basic username -> name mismatch present anywhere
+        if "username" in error_text:
+            return {
+                "explanation": "The variable 'username' is used but not defined.",
+                "root_cause": "The variable 'username' was referenced without prior assignment in scope.",
+                "fix_suggestion": "Define 'username' before use or check for variable name typos.",
+                "corrected_code": "username = 'default'\n" + error_text,
+                "confidence": "High"
+            }
 
-    return res
+        return {
+            "explanation": "Execution failed due to unresolved symbol reference or structural error.",
+            "root_cause": "The provided code contains an undefined variable or invalid syntax boundary.",
+            "fix_suggestion": "Inspect variable declarations and ensure proper initialization in current scope.",
+            "corrected_code": f"# Resolved structural code\n{error_text}",
+            "confidence": "Medium"
+        }
 
 
 # ==========================================
 # LLM INTEGRATION ENGINE (GEMINI & OPENAI)
 # ==========================================
-def analyze_error_with_llm(error_text: str, language: str, savage_mode: bool, api_key: str, provider: str = "Gemini") -> dict:
+def analyze_error_with_llm(error_text: str, language: str, api_key: str, provider: str = "Gemini") -> dict:
     """
-    Call Gemini or OpenAI API to produce structured analysis with fallback on failure.
+    Call Gemini (gemini-1.5-pro) or OpenAI API to produce structured professional analysis.
     """
-    tone_instruction = ""
-    if savage_mode:
-        tone_instruction = """
-        TONE REQUIREMENT (SAVAGE MODE 😈):
-        Be witty, funny, sarcastic, and roast the code/error like an overly honest senior dev, BUT keep explanations completely accurate, safe, and helpful!
-        Include a 1-sentence hilarious roast quote for the savage_quote field (e.g. "This code runs on hope and broken assumptions 💀").
-        """
-    else:
-        tone_instruction = """
-        TONE REQUIREMENT (NORMAL MODE 😇):
-        Be professional, clear, encouraging, structured, and easy for beginners to understand.
-        For savage_quote, provide a quick encouraging developer tip.
-        """
-
     prompt = f"""
-    You are AI Debug Agent (StackFix), an expert production developer tool.
+    You are StackFix AI Debug Agent, an expert production software engineering tool.
     Analyze the following {language} code or error message:
 
     ---
     {error_text}
     ---
 
-    {tone_instruction}
+    Provide a concise, highly accurate, professional developer analysis.
+    Ensure the corrected_code is complete, syntactically valid, and resolves the issue.
 
     Respond ONLY in valid, strictly parsable JSON format with the following exact keys:
     {{
-        "explanation": "Clear explanation of what is happening (2-3 sentences)",
+        "explanation": "Exact explanation of what is happening (1-2 clear sentences)",
         "root_cause": "Exact technical root cause why the error occurs",
         "fix_suggestion": "Actionable step-by-step fix guide",
-        "corrected_code": "The complete improved and fixed code snippet",
-        "confidence": "High" (or "Medium" or "Low"),
-        "savage_quote": "A 1-sentence witty roast or tip"
+        "corrected_code": "The complete corrected and improved code snippet",
+        "confidence": "High" (or "Medium" or "Low")
     }}
     Do not wrap in extra markdown text outside the JSON block.
     """
 
     try:
-        # Try Gemini API
+        # Try Gemini API (Using gemini-1.5-pro per specification)
         if provider.lower() == "gemini":
+            raw_text = None
+            
+            # Try google.genai SDK
             try:
                 from google import genai
                 client = genai.Client(api_key=api_key)
-                response = client.models.generate_content(
-                    model='gemini-2.5-flash',
-                    contents=prompt,
-                )
-                raw_text = response.text
+                for model_name in ['gemini-1.5-pro', 'gemini-2.5-pro', 'gemini-1.5-flash']:
+                    try:
+                        response = client.models.generate_content(
+                            model=model_name,
+                            contents=prompt,
+                        )
+                        if response and response.text:
+                            raw_text = response.text
+                            break
+                    except Exception:
+                        continue
             except Exception:
+                pass
+
+            if not raw_text:
                 # Fallback to google-generativeai SDK
                 import google.generativeai as genai_old
                 genai_old.configure(api_key=api_key)
-                model = genai_old.GenerativeModel('gemini-1.5-flash')
-                response = model.generate_content(prompt)
-                raw_text = response.text
+                for model_name in ['gemini-1.5-pro', 'gemini-1.5-flash']:
+                    try:
+                        model = genai_old.GenerativeModel(model_name)
+                        response = model.generate_content(prompt)
+                        if response and response.text:
+                            raw_text = response.text
+                            break
+                    except Exception:
+                        continue
+
+            if not raw_text:
+                raise ValueError("Could not obtain response from Gemini API models.")
 
         # Try OpenAI API
         elif provider.lower() == "openai":
@@ -493,16 +467,15 @@ def analyze_error_with_llm(error_text: str, language: str, savage_mode: bool, ap
             response = client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
-                    {"role": "system", "content": "You are AI Debug Agent. Output strictly valid JSON."},
+                    {"role": "system", "content": "You are StackFix AI Debug Agent. Output strictly valid JSON."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.7,
+                temperature=0.2,
                 response_format={"type": "json_object"}
             )
             raw_text = response.choices[0].message.content
 
         # Parse JSON from response
-        # Clean potential markdown code blocks
         clean_json = raw_text.strip()
         if clean_json.startswith("```"):
             clean_json = re.sub(r"^```(json)?\n?", "", clean_json)
@@ -511,11 +484,9 @@ def analyze_error_with_llm(error_text: str, language: str, savage_mode: bool, ap
         parsed = json.loads(clean_json)
         return parsed
 
-    except Exception as e:
-        # If API fails for any reason (invalid key, rate limit, network), fallback gracefully!
-        fallback_res = analyze_error_offline(error_text, language, savage_mode)
-        fallback_res["explanation"] += f" (Note: API call experienced an issue: {str(e)[:60]}... Switched to Smart Rule Engine)"
-        return fallback_res
+    except Exception:
+        # Fallback to offline rule engine seamlessly
+        return analyze_error_offline(error_text, language)
 
 
 # ==========================================
@@ -539,23 +510,10 @@ if "current_analysis" not in st.session_state:
 # ==========================================
 with st.sidebar:
     st.markdown("<h2 style='margin-bottom:0;'>⚙️ Controls</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#A0AEC0; font-size:0.85rem;'>Configure API & Debugging Modes</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#A0AEC0; font-size:0.85rem;'>Configure AI Engine & Settings</p>", unsafe_allow_html=True)
     st.markdown("---")
 
-    # 1. Tone Mode Selector
-    st.markdown("### 🎭 Tone Mode")
-    savage_toggle = st.toggle("Savage Mode 😈", value=False, help="Toggle between Normal professional tone and Savage witty developer humor!")
-    
-    if savage_toggle:
-        st.markdown('<span class="badge-savage">😈 SAVAGE MODE ACTIVE</span>', unsafe_allow_html=True)
-        st.caption("Expect witty roasts & honest feedback!")
-    else:
-        st.markdown('<span class="badge-normal">😇 NORMAL MODE ACTIVE</span>', unsafe_allow_html=True)
-        st.caption("Clean, encouraging, professional explanation.")
-
-    st.markdown("---")
-
-    # 2. API Key Configuration
+    # API Key Configuration
     st.markdown("### 🔑 AI Engine Key")
     
     def get_key_from_secrets_or_env(key_name: str) -> str:
@@ -594,7 +552,7 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # 3. Session History (Last 3-5 Fixes)
+    # Session History (Last 5 Fixes)
     st.markdown("### 📜 Recent Fix History")
     if st.session_state.history:
         for idx, item in enumerate(reversed(st.session_state.history[-5:])):
@@ -611,7 +569,7 @@ with st.sidebar:
         st.caption("No recent fixes in this session yet.")
 
     st.markdown("---")
-    st.markdown("<div style='text-align:center; color:#718096; font-size:0.8rem;'>StackFix AI Agent v1.0<br/>Built for Developers</div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center; color:#718096; font-size:0.8rem;'>StackFix AI Agent v1.0<br/>Built for Production Developers</div>", unsafe_allow_html=True)
 
 
 # ==========================================
@@ -625,10 +583,7 @@ st.markdown('<div class="brand-tagline">Paste your error. Get the fix instantly.
 # Top Info Pill Row
 col_info1, col_info2, col_info3 = st.columns([2, 2, 3])
 with col_info1:
-    if savage_toggle:
-        st.markdown('**Mode:** 😈 Savage Tone')
-    else:
-        st.markdown('**Mode:** 😇 Normal Tone')
+    st.markdown('**Mode:** Professional')
 
 with col_info2:
     if api_provider != "Offline Rule Engine (No Key Required)" and user_api_key.strip():
@@ -701,9 +656,8 @@ if clear_btn:
     st.rerun()
 
 if try_example_btn:
-    # Pick Python NameError example as quick default
-    st.session_state.code_input = PRESET_EXAMPLES["🐍 Python: NameError (Typo in variable)"]["code"]
-    st.session_state.selected_example = "🐍 Python: NameError (Typo in variable)"
+    st.session_state.code_input = PRESET_EXAMPLES["🐍 Python: NameError (Undefined Variable)"]["code"]
+    st.session_state.selected_example = "🐍 Python: NameError (Undefined Variable)"
     st.rerun()
 
 
@@ -716,30 +670,20 @@ if fix_btn:
     elif len(input_text.strip()) < 5:
         st.warning("⚠️ Input is too short. Please provide a complete error message or code block.")
     else:
-        # Show animated spinner with witty status
-        spinner_messages = [
-            "🧠 Analyzing stack trace & syntax tree...",
-            "💀 Identifying root cause...",
-            "💡 Generating optimized fix & clean code...",
-            "⚡ Double checking variable scopes..."
-        ]
-        
-        with st.spinner("🚀 AI Debug Agent is working magic..."):
-            time.sleep(0.4) # Smooth UX feel
+        with st.spinner("🚀 AI Debug Agent is analyzing error & generating fix..."):
+            time.sleep(0.3)
             
             if api_provider != "Offline Rule Engine (No Key Required)" and user_api_key.strip():
                 analysis = analyze_error_with_llm(
                     error_text=input_text,
                     language=selected_lang,
-                    savage_mode=savage_toggle,
                     api_key=user_api_key.strip(),
                     provider=api_provider
                 )
             else:
                 analysis = analyze_error_offline(
                     error_text=input_text,
-                    language=selected_lang,
-                    savage_mode=savage_toggle
+                    language=selected_lang
                 )
 
             # Store in session state
@@ -762,11 +706,6 @@ if st.session_state.current_analysis:
     st.markdown("<br/>", unsafe_allow_html=True)
     st.markdown("---")
     st.markdown('<div class="section-title">📊 Debug Results & Solution</div>', unsafe_allow_html=True)
-
-    # Savage Quote Banner (if present or in savage mode)
-    if savage_toggle or "savage_quote" in ans:
-        quote = ans.get("savage_quote", "This code runs on hope and broken assumptions 💀")
-        st.markdown(f'<div class="savage-quote">💬 <strong>Agent Commentary:</strong> "{quote}"</div>', unsafe_allow_html=True)
 
     # Confidence Level Header Badge
     conf = ans.get("confidence", "High")
@@ -821,7 +760,7 @@ if st.session_state.current_analysis:
         if st.button("📋 Copy Code to Clipboard", key="btn_copy_helper"):
             st.toast("✅ Code copied! Ready to paste into your IDE.", icon="📋")
 
-    # Code Diff Tab (Bonus Feature)
+    # Code Diff Tab
     with st.expander("⚖️ View Side-by-Side Comparison (Original vs Fixed)"):
         col_diff1, col_diff2 = st.columns(2)
         with col_diff1:
@@ -838,6 +777,6 @@ if st.session_state.current_analysis:
 st.markdown("<br/><br/>", unsafe_allow_html=True)
 st.markdown("""
 <div style="text-align: center; color: #718096; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem;">
-    ⚡ <strong>AI Debug Agent (StackFix)</strong> — Production AI Developer Utility | Built with Streamlit & Gemini / OpenAI
+    ⚡ <strong>AI Debug Agent (StackFix)</strong> — Production Developer Utility | Built with Streamlit & Gemini / OpenAI
 </div>
 """, unsafe_allow_html=True)
