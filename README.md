@@ -1,14 +1,54 @@
-# StackFix AI — Enterprise Production-Grade AI Debugging SaaS Platform
+<div align="center">
 
-[![StackFix CI/CD Pipeline](https://github.com/Dhanya562004/Stack-fix/actions/workflows/ci.yml/badge.svg)](https://github.com/Dhanya562004/Stack-fix/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js](https://img.shields.io/badge/Node.js-v20.x-green.svg)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/Express-v4.21-blue.svg)](https://expressjs.com/)
-[![React](https://img.shields.io/badge/React-v18.3-61dafb.svg)](https://reactjs.org/)
-[![Gemini AI](https://img.shields.io/badge/AI-Gemini%201.5%20Flash-purple.svg)](https://aistudio.google.com/)
-[![AWS S3](https://img.shields.io/badge/Cloud-AWS%20S3-orange.svg)](https://aws.amazon.com/s3/)
+# ⚡ StackFix AI — Debugging Assistant SaaS Platform
 
-StackFix AI is a production-grade developer SaaS platform designed to analyze programming errors, runtime exceptions, and compiler stack traces. It combines Large Language Models (Google Gemini API `gemini-1.5-flash`) with an intelligent deterministic fallback engine, cloud storage architecture (AWS S3), comprehensive CI/CD pipelines, and automated Jest test suites.
+### *Paste your error. Get instant AI root cause analysis, actionable fix steps, and corrected code.*
+
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Streamlit_App-ff4b4b.svg?style=for-the-badge)](https://stack-fix-kp5papbbbthu5pf8uzvkpz.streamlit.app/)
+[![GitHub CI/CD](https://img.shields.io/github/actions/workflow/status/Dhanya562004/Stack-fix/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&label=CI%2FCD)](https://github.com/Dhanya562004/Stack-fix/actions)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+[![Node.js](https://img.shields.io/badge/Node.js-v20-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-v4.21-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
+[![React](https://img.shields.io/badge/React-v18.3-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
+[![Gemini AI](https://img.shields.io/badge/Gemini_1.5_Flash-8E75B2?style=flat-square&logo=googlegemini&logoColor=white)](https://aistudio.google.com/)
+[![AWS S3](https://img.shields.io/badge/AWS_S3-FF9900?style=flat-square&logo=amazons3&logoColor=white)](https://aws.amazon.com/s3/)
+[![Jest](https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white)](https://jestjs.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+
+</div>
+
+---
+
+## 🌟 Live Application & Quick Links
+
+- 🌐 **Live Web Application:** [https://stack-fix-kp5papbbbthu5pf8uzvkpz.streamlit.app/](https://stack-fix-kp5papbbbthu5pf8uzvkpz.streamlit.app/)
+- 📦 **GitHub Repository:** [https://github.com/Dhanya562004/Stack-fix.git](https://github.com/Dhanya562004/Stack-fix.git)
+- ⚙️ **CI/CD Pipeline:** [GitHub Actions Workflow Status](https://github.com/Dhanya562004/Stack-fix/actions)
+
+---
+
+## 📌 Overview
+
+**StackFix AI** is an enterprise-grade AI debugging SaaS platform designed to analyze programming errors, runtime exceptions, and compiler stack traces across multiple languages (*Python, JavaScript, TypeScript, Java, C++, Go, Rust*).
+
+It pairs Large Language Models (**Google Gemini 1.5 Flash**) with a deterministic heuristic fallback engine, an **AWS S3 cloud storage abstraction layer**, structured Winston logging, and comprehensive automated testing.
+
+---
+
+## ✨ Key Features
+
+- 🧠 **Dual AI Engine Architecture:** Primary analysis powered by Google Gemini 1.5 Flash API, with seamless automatic fallback to a local deterministic heuristic engine ensuring **100% system uptime**.
+- 🔍 **4-Part Diagnostic Output:** Every analysis produces:
+  1. **Root Cause:** Exact line and logic flaw breakdown.
+  2. **Issue Explanation:** Plain English, developer-friendly explanation.
+  3. **Action Plan:** Step-by-step resolution checklist.
+  4. **Corrected Code:** Complete, ready-to-use replacement code.
+- ☁️ **Cloud Storage Integration (AWS S3):** Every analysis session log is saved directly to AWS S3 (or local cloud storage abstraction layer).
+- 🎨 **Modern Glassmorphism UI:** React 18 frontend with dark-mode aesthetic, sample preset picker, side-by-side code diff viewer, copy-to-clipboard, and history drawer.
+- 🛡️ **Enterprise Security & DevOps:** Helmet HTTP security headers, CORS origin protection, IP rate limiting, input validation (`express-validator`), and Winston JSON logging.
+- 🧪 **Automated Testing Suite:** Jest + Supertest integration and unit tests covering API endpoints, input validation, and storage layer.
+- 🔄 **Automated CI/CD Pipeline:** GitHub Actions workflow executing build, test matrix (Node 18 & 20), and artifact archiving on every push.
 
 ---
 
@@ -16,51 +56,38 @@ StackFix AI is a production-grade developer SaaS platform designed to analyze pr
 
 ```mermaid
 graph TD
-    User([Developer / Client]) -->|HTTP REST API| ReactFE[React 18 Frontend - Vite]
+    User([Developer / User]) -->|HTTP REST API| ReactFE[React 18 Frontend - Vite]
     ReactFE -->|POST /analyze| ExpressAPI[Express API Backend]
-    
-    subgraph Express Backend Service
+
+    subgraph Express Backend Microservice
         ExpressAPI --> MW[Helmet / CORS / RateLimiter / Validator]
         MW --> Controller[Analyze Controller]
         
-        Controller -->|Query| AIService[AI Engine Service Layer]
-        Controller -->|Persist Log| StorageService[Cloud Storage Service Abstraction]
+        Controller -->|Invoke| AIService[AI Engine Service Layer]
+        Controller -->|Persist Log| StorageService[AWS S3 Storage Abstraction]
         
         AIService -->|Primary| GeminiAPI[Google Gemini 1.5 API]
         AIService -->|Fallback| HeuristicEngine[Deterministic Rule Engine]
         
-        StorageService -->|If Configured| AWSS3[AWS S3 Bucket]
-        StorageService -->|Offline / Default| LocalStorage[Local Cloud File Storage]
+        StorageService -->|If Credentials Set| AWSS3[AWS S3 Bucket]
+        StorageService -->|Default / Local| LocalStorage[Local Cloud File Storage]
     end
 
-    Controller -->|Structured JSON| ReactFE
+    Controller -->|Structured JSON Response| ReactFE
 ```
 
 ---
 
-## ⚡ Core Features
+## 🛠️ Technology Stack
 
-- **Multi-Language AI Diagnostics:** Analyzes Python, JavaScript, TypeScript, Java, C++, Go, and Rust stack traces.
-- **Structured AI Analysis:** Returns Root Cause, Clear Issue Explanation, Step-by-Step Action Plan, and Corrected Code.
-- **Dual AI Engine Architecture:** Primary execution via Google Gemini 1.5 Flash API with intelligent deterministic fallback engine ensuring 100% uptime.
-- **Cloud S3 Storage Layer:** Persists all debugging logs and session data to AWS S3 (or local cloud abstraction layer).
-- **Enterprise DevOps Setup:** Winston structured JSON logging, Morgan HTTP request logging, Helmet security headers, rate limiting, and input validation.
-- **Automated Testing Suite:** Integration & Unit tests powered by Jest + Supertest with high code coverage.
-- **CI/CD Pipeline:** Fully automated GitHub Actions workflow (`.github/workflows/ci.yml`) for multi-version Node testing, linting, and building.
-- **Production UI:** Glassmorphism dark mode React UI featuring code editor, sample presets, side-by-side code diff viewer, copy-to-clipboard, and history drawer.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
+| Layer | Technology & Tools |
 |---|---|
-| **Frontend** | React 18, Vite, Tailwind CSS, Lucide Icons |
+| **Frontend UI** | React 18, Vite, Tailwind CSS, Lucide Icons |
 | **Backend API** | Node.js (v20), Express.js, Helmet, Morgan, Winston |
-| **AI Layer** | Google Gemini API (`gemini-1.5-flash`) + Heuristic Engine |
+| **AI Integration** | Google Gemini API (`gemini-1.5-flash`) + Heuristic Fallback Engine |
 | **Cloud Storage** | AWS S3 (`@aws-sdk/client-s3`) & Local Abstraction |
 | **Testing** | Jest, Supertest |
-| **DevOps & CI/CD** | Docker, Docker Compose, GitHub Actions |
+| **DevOps & Infrastructure** | Docker, Docker Compose, GitHub Actions |
 
 ---
 
@@ -70,50 +97,51 @@ graph TD
 StackFix/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml             # GitHub Actions CI/CD Pipeline
+│       └── ci.yml             # GitHub Actions CI/CD Pipeline Workflow
 ├── backend/
+│   ├── package.json
 │   └── src/
-│       ├── config/            # Centralized Environment Config
+│       ├── config/            # Centralized Configuration Manager
 │       ├── controllers/       # API Controllers (Analyze, Health, History)
-│       ├── middleware/        # Error Handling, Validation, Logger
+│       ├── middleware/        # Error Handler, Validation, Logger Middleware
 │       ├── routes/            # Express API Routes (/analyze, /health)
-│       ├── services/          # AI Service (Gemini) & Storage Service (S3)
-│       ├── utils/             # Winston Logger Utility
-│       └── server.js          # Express Application Entrypoint
-├── frontend/                  # React + Vite Frontend Application
+│       ├── services/          # Gemini AI Engine & AWS S3 Storage Service
+│       ├── utils/             # Winston Structured Logger Utility
+│       └── server.js          # Express Server Entrypoint
+├── frontend/                  # React + Vite Web Application
 │   ├── src/
 │   │   ├── components/        # Header, CodeEditor, AnalysisResult, HistoryDrawer
 │   │   ├── services/          # API Client Layer
 │   │   ├── App.jsx
-│   │   └── index.css          # Glassmorphism Design System
+│   │   └── index.css          # Glassmorphism Styling System
 │   ├── vercel.json            # Vercel Deployment Routing Config
 │   └── vite.config.js
 ├── tests/                     # Automated Jest + Supertest Suites
-│   ├── analyze.test.js        # POST /analyze API Integration Tests
-│   ├── health.test.js         # GET /health System Metrics Tests
+│   ├── analyze.test.js        # POST /analyze Integration Tests
+│   ├── health.test.js         # GET /health System Check Tests
 │   └── storage.test.js        # Storage Layer Unit Tests
-├── Dockerfile                 # Multi-stage Container Build
+├── Dockerfile                 # Multi-Stage Production Container Build
 ├── docker-compose.yml         # Container Orchestration
 ├── jest.config.js             # Jest Configuration
-├── package.json               # Root Package & Orchestration Scripts
-├── .env.example               # Environment Variables Template
-└── README.md                  # Project Documentation
+├── package.json               # Root Dependencies & Script Orchestration
+├── .env.example               # Environment Configuration Template
+└── README.md                  # Comprehensive Documentation
 ```
 
 ---
 
-## 🚀 Quick Start Guide
+## 🚀 Getting Started
 
 ### 1. Prerequisites
-- Node.js v18.x or v20.x
-- npm v9+ or yarn
+- **Node.js** (v18.x or v20.x)
+- **npm** (v9+ or yarn)
 
-### 2. Environment Configuration
-Copy the template `.env.example` to `.env`:
+### 2. Environment Setup
+Create a `.env` file in the root directory:
 ```bash
 cp .env.example .env
 ```
-Edit `.env` to supply your API keys (optional - works in fallback mode without keys):
+Configure your environment variables:
 ```env
 PORT=5000
 NODE_ENV=development
@@ -127,12 +155,12 @@ npm run install:all
 ```
 
 ### 4. Run Development Servers
-To start both Backend API and React Frontend concurrently:
+Start both Express Backend API and React Frontend concurrently:
 ```bash
 npm run dev
 ```
-- **Frontend App:** `http://localhost:5173`
-- **Backend API:** `http://localhost:5000`
+- 🖥️ **Frontend:** `http://localhost:5173`
+- ⚙️ **Backend API:** `http://localhost:5000`
 
 ---
 
@@ -141,31 +169,35 @@ npm run dev
 Run the automated Jest test suite covering API endpoints, input validation, fallback logic, and cloud storage:
 
 ```bash
+# Run all test suites
 npm test
-```
 
-Generate full code coverage report:
-```bash
+# Run tests with coverage report
 npm run test:coverage
 ```
+
+### Test Results
+- `tests/analyze.test.js` — **PASSED** (Valid inputs, Bad Request validations, Fallback handling, History)
+- `tests/health.test.js` — **PASSED** (System uptime, memory usage, integration statuses)
+- `tests/storage.test.js` — **PASSED** (AWS S3 abstraction layer saving & retrieval)
 
 ---
 
 ## 🐳 Docker Deployment
 
-Build and run using Docker Compose:
+Build and launch using Docker Compose:
 
 ```bash
 docker-compose up --build -d
 ```
-The application will be accessible at `http://localhost:5000`.
+The unified application will be accessible at `http://localhost:5000`.
 
 ---
 
-## 📡 API Reference
+## 📡 REST API Reference
 
 ### `POST /analyze`
-Analyzes a code snippet and error stack trace.
+Analyzes code and error message.
 
 **Request Body:**
 ```json
@@ -181,50 +213,38 @@ Analyzes a code snippet and error stack trace.
 {
   "success": true,
   "data": {
-    "id": "analysis-a1b2c3d4",
+    "id": "analysis-8f3a1b2c",
     "timestamp": "2026-09-27T12:00:00.000Z",
     "analysis": {
-      "rootCause": "The variable 'username' is referenced but was not defined in scope.",
-      "explanation": "You assigned value 'Alex' to variable 'name', but referenced 'username' in print statement.",
+      "rootCause": "The variable 'username' is referenced but was not defined in the current scope.",
+      "explanation": "You defined 'name' on assignment, but referenced 'username' in the print statement.",
       "fixSteps": [
-        "Change 'username' to 'name' in print statement.",
-        "Ensure variable is initialized before reference."
+        "Replace 'username' with 'name' in print statement.",
+        "Ensure variable is initialized before reading."
       ],
       "fixedCode": "name = \"Alex\"\nprint(\"Hello \" + name)",
       "confidenceScore": 0.95
     },
     "metadata": {
-      "executionTimeMs": 18,
+      "executionTimeMs": 24,
       "mode": "gemini_ai",
       "model": "gemini-1.5-flash"
     }
   },
   "storage": {
     "storage": "aws_s3",
-    "key": "analyses/2026-09-27/analysis-a1b2c3d4.json"
+    "key": "analyses/2026-09-27/analysis-8f3a1b2c.json"
   }
 }
 ```
 
 ### `GET /health`
-Returns live health status, memory usage, uptime, Gemini API connection, and cloud storage status.
-
----
-
-## 🌐 Production Deployment Steps
-
-### Backend (Render / Railway / AWS ECS)
-1. Set Environment Variables: `PORT`, `NODE_ENV=production`, `GEMINI_API_KEY`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`.
-2. Build Command: `npm --prefix backend install`
-3. Start Command: `node backend/src/server.js`
-
-### Frontend (Vercel / Netlify)
-1. Root Directory: `frontend`
-2. Build Command: `npm run build`
-3. Output Directory: `dist`
-4. Set Environment Variable: `VITE_API_BASE_URL=https://your-backend-api.onrender.com`
+Returns live server uptime, system memory stats, Gemini API status, and Cloud S3 storage configuration status.
 
 ---
 
 ## 📄 License
-MIT License. Created by Dhanya.
+
+Distributed under the **MIT License**. See `LICENSE` for details.
+
+Developed with ❤️ by **Dhanya**.
