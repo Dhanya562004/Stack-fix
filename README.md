@@ -28,6 +28,16 @@
 
 ---
 
+## 📊 Repository Languages & Code Composition
+
+![JavaScript](https://img.shields.io/badge/JavaScript-63.8%25-f7df1e?style=for-the-badge&logo=javascript&logoColor=black)
+![Python](https://img.shields.io/badge/Python-33.1%25-3776ab?style=for-the-badge&logo=python&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML5-1.3%25-e34f26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1.1%25-1572b6?style=for-the-badge&logo=css3&logoColor=white)
+![Dockerfile](https://img.shields.io/badge/Dockerfile-0.7%25-2496ed?style=for-the-badge&logo=docker&logoColor=white)
+
+---
+
 ## 📌 Overview
 
 **StackFix AI** is an enterprise-grade AI debugging SaaS platform designed to analyze programming errors, runtime exceptions, and compiler stack traces across multiple languages (*Python, JavaScript, TypeScript, Java, C++, Go, Rust*).
@@ -42,7 +52,7 @@ It pairs Large Language Models (**Google Gemini 1.5 Flash**) with a deterministi
 - 🔍 **4-Part Diagnostic Output:** Every analysis produces:
   1. **Root Cause:** Exact line and logic flaw breakdown.
   2. **Issue Explanation:** Plain English, developer-friendly explanation.
-  3. **Action Plan:** Step-by-step resolution checklist.
+  3. **Action Plan:** Step-by-Step resolution checklist.
   4. **Corrected Code:** Complete, ready-to-use replacement code.
 - ☁️ **Cloud Storage Integration (AWS S3):** Every analysis session log is saved directly to AWS S3 (or local cloud storage abstraction layer).
 - 🎨 **Modern Glassmorphism UI:** React 18 frontend with dark-mode aesthetic, sample preset picker, side-by-side code diff viewer, copy-to-clipboard, and history drawer.
@@ -243,8 +253,19 @@ Returns live server uptime, system memory stats, Gemini API status, and Cloud S3
 
 ---
 
+## 👤 Author & Contributor
+
+<div align="center">
+
+| [<img src="https://github.com/Dhanya562004.png" width="100px;" alt="Dhanya k"/><br /><sub><b>Dhanya k</b></sub>](https://github.com/Dhanya562004)<br />[![GitHub](https://img.shields.io/badge/GitHub-Dhanya562004-181717?style=flat-square&logo=github)](https://github.com/Dhanya562004) |
+| :---: |
+
+**Dhanya k** ([@Dhanya562004](https://github.com/Dhanya562004)) — Creator & Lead Software Engineer
+
+</div>
+
+---
+
 ## 📄 License
 
 Distributed under the **MIT License**. See `LICENSE` for details.
-
-Developed with ❤️ by **Dhanya**.
