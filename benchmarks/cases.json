@@ -1,0 +1,16 @@
+[
+ {"id":1,"language":"python","error":"NameError: name 'totl' is not defined","code":"total = 5\nprint(totl)","expect":"total"},
+ {"id":2,"language":"python","error":"IndentationError: expected an indented block","code":"def f():\nreturn 1","expect":"indent"},
+ {"id":3,"language":"python","error":"TypeError: can only concatenate str (not \"int\") to str","code":"print('age: ' + 5)","expect":"str"},
+ {"id":4,"language":"python","error":"ZeroDivisionError: division by zero","code":"print(10/0)","expect":"zero"},
+ {"id":5,"language":"python","error":"IndexError: list index out of range","code":"a=[1,2]\nprint(a[5])","expect":"index"},
+ {"id":6,"language":"python","error":"KeyError: 'name'","code":"d={}\nprint(d['name'])","expect":"get"},
+ {"id":7,"language":"python","error":"ModuleNotFoundError: No module named 'requests'","code":"import requests","expect":"pip install"},
+ {"id":8,"language":"python","error":"AttributeError: 'NoneType' object has no attribute 'upper'","code":"x=None\nx.upper()","expect":"None"},
+ {"id":9,"language":"javascript","error":"ReferenceError: count is not defined","code":"console.log(count)","expect":"declare"},
+ {"id":10,"language":"javascript","error":"TypeError: Cannot read properties of undefined (reading 'name')","code":"const u={}\nconsole.log(u.profile.name)","expect":"undefined"},
+ {"id":11,"language":"javascript","error":"TypeError: x.map is not a function","code":"const x={}\nx.map(i=>i)","expect":"array"},
+ {"id":12,"language":"javascript","error":"SyntaxError: Unexpected token '}'","code":"function f(){ return 1 }}","expect":"brace"},
+ {"id":13,"language":"javascript","error":"TypeError: Assignment to constant variable.","code":"const a=1\na=2","expect":"const"},
+ {"id":14,"language":"javascript","error":"UnhandledPromiseRejection: fetch failed","code":"fetch('http://bad')","expect":"catch"}
+]

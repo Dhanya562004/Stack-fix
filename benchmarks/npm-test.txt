@@ -1,0 +1,48 @@
+﻿
+> stackfix-ai@2.0.0 test
+> jest --detectOpenHandles --forceExit
+
+[14:45:20] [32minfo[39m: AWS S3 credentials not provided. Using Local Cloud Abstraction Layer Storage {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: Received analysis request [ID: analysis-bce4877f] {"service":"stackfix-api","language":"python","codeLength":40,"errorLength":41}
+[14:45:20] [32minfo[39m: Gemini API key not configured or set to demo. Using Deterministic Heuristic Engine. {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: Analysis log saved locally: C:\Users\Deeksha\OneDrive\Desktop\StackFix\.data\storage\analysis-bce4877f.json {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: Analysis completed successfully [ID: analysis-bce4877f] {"service":"stackfix-api","mode":"heuristic_fallback","storage":"local_file_system"}
+[14:45:20] [32minfo[39m: ::ffff:127.0.0.1 - POST /analyze 200 1016 - 35.097 ms {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: ::ffff:127.0.0.1 - POST /analyze 400 169 - 3.117 ms {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: ::ffff:127.0.0.1 - POST /analyze 400 179 - 3.119 ms {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: ::ffff:127.0.0.1 - POST /analyze 400 167 - 1.309 ms {"service":"stackfix-api"}
+[14:45:20] [32minfo[39m: ::ffff:127.0.0.1 - GET /analyze/history 200 864 - 1.359 ms {"service":"stackfix-api"}
+node.exe : PASS tests/analyze.test.js
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS tests/analyze.test.js:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  POST /analyze - AI Debugging Analysis API
+    ΓêÜ should return 200 OK and valid response structure for valid code and error (228 ms)
+    ΓêÜ should return 400 Bad Request when code is missing (35 ms)
+    ΓêÜ should return 400 Bad Request when error stack is missing (32 ms)
+    ΓêÜ should return 400 Bad Request when code is empty whitespace (18 ms)
+    ΓêÜ should allow fetching analysis history via GET /analyze/history (15 ms)
+
+[14:45:21] [32minfo[39m: AWS S3 credentials not provided. Using Local Cloud Abstraction Layer Storage {"service":"stackfix-api"}
+[14:45:21] [32minfo[39m: ::ffff:127.0.0.1 - GET /health 200 545 - 1.353 ms {"service":"stackfix-api"}
+[14:45:21] [32minfo[39m: ::ffff:127.0.0.1 - GET /api/health 200 545 - 0.777 ms {"service":"stackfix-api"}
+PASS tests/health.test.js
+  GET /health - System Health Check API
+    ΓêÜ should return 200 OK with server health metrics and integration status (39 ms)
+    ΓêÜ should also respond at /api/health (24 ms)
+
+[14:45:21] [32minfo[39m: AWS S3 credentials not provided. Using Local Cloud Abstraction Layer Storage {"service":"stackfix-api"}
+[14:45:21] [32minfo[39m: Analysis log saved locally: C:\Users\Deeksha\OneDrive\Desktop\StackFix\.data\storage\test-analysis-12345.json {"service":"stackfix-api"}
+PASS tests/storage.test.js
+  StorageService Cloud Abstraction Unit Tests
+    ΓêÜ should successfully save and retrieve an analysis record (12 ms)
+    ΓêÜ should return storage status information (1 ms)
+
+Test Suites: 3 passed, 3 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        3.452 s, estimated 12 s
+Ran all test suites.
