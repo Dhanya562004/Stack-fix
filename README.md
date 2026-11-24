@@ -40,7 +40,7 @@ f<div align="center">
 
 ## 📌 Overview
 
-**StackFix AI** is an enterprise-grade AI debugging SaaS platform designed to analyze programming errors, runtime exceptions, and compiler stack traces across multiple languages (*Python, JavaScript, TypeScript, Java, C++, Go, Rust*).
+**StackFix AI** is an AI-powered debugging SaaS platform designed to analyze programming errors, runtime exceptions, and compiler stack traces across multiple languages (*Python, JavaScript, TypeScript, Java, C++, Go, Rust*).
 
 It pairs Large Language Models (**Google Gemini 2.5 Flash**) with a deterministic heuristic fallback engine, an **AWS S3 cloud storage abstraction layer**, structured Winston logging, and comprehensive automated testing.
 
@@ -69,7 +69,7 @@ graph TD
     User([Developer / User]) -->|HTTP REST API| ReactFE[React 18 Frontend - Vite]
     ReactFE -->|POST /analyze| ExpressAPI[Express API Backend]
 
-    subgraph Express Backend Microservice
+    subgraph Express Backend
         ExpressAPI --> MW[Helmet / CORS / RateLimiter / Validator]
         MW --> Controller[Analyze Controller]
         
@@ -94,7 +94,7 @@ graph TD
 |---|---|
 | **Frontend UI** | React 18, Vite, Tailwind CSS, Lucide Icons |
 | **Backend API** | Node.js (v20), Express.js, Helmet, Morgan, Winston |
-| **AI Integration** | Google Gemini API (`gemini-1.5-flash`) + Heuristic Fallback Engine |
+| **AI Integration** | Google Gemini API (`gemini-2.5-flash`) + Heuristic Fallback Engine |
 | **Cloud Storage** | AWS S3 (`@aws-sdk/client-s3`) & Local Abstraction |
 | **Testing** | Jest, Supertest |
 | **DevOps & Infrastructure** | Docker, Docker Compose, GitHub Actions |
@@ -156,7 +156,7 @@ Configure your environment variables:
 PORT=5000
 NODE_ENV=development
 GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-1.5-flash
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
 ### 3. Install Dependencies
@@ -176,7 +176,7 @@ npm run dev
 
 ## 🧪 Automated Testing & Quality Assurance
 
-StackFix AI includes a comprehensive, production-grade automated testing suite using **Jest** and **Supertest** to ensure reliability across all microservice layers.
+StackFix AI includes an automated testing suite using Jest and Supertest to verify API endpoints, input validation, and storage functionality.
 
 ```bash
 # Run all automated test suites
@@ -186,7 +186,7 @@ npm test
 npm run test:coverage
 ```
 
-### Verified Test Suite Breakdown (100% Pass Rate)
+### 9 of 9 Tests Passing
 
 ```text
 PASS  tests/storage.test.js
@@ -260,7 +260,7 @@ Analyzes code and error message.
     "metadata": {
       "executionTimeMs": 24,
       "mode": "gemini_ai",
-      "model": "gemini-1.5-flash"
+      "model": "gemini-2.5-flash"
     }
   },
   "storage": {
@@ -291,3 +291,17 @@ Returns live server uptime, system memory stats, Gemini API status, and Cloud S3
 ## 📄 License
 
 Distributed under the **MIT License**. See `LICENSE` for details.
+
+---
+
+## 📊 Benchmark Results
+
+StackFix AI includes benchmark cases to evaluate its debugging analysis and fallback behavior.
+
+| Benchmark Metric | Result |
+|---|---:|
+| Total benchmark cases | 14 |
+| Python cases | 8 |
+| JavaScript cases | 6 |
+| Heuristic fallback passed | 1/14 |
+| Gemini benchmark | Pending |
