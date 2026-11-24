@@ -48,7 +48,7 @@ It pairs Large Language Models (**Google Gemini 2.5 Flash**) with a deterministi
 
 ## ✨ Key Features
 
-- 🧠 **Dual AI Engine Architecture:** Primary analysis powered by Google Gemini 2.5 Flash API, with seamless automatic fallback to a local deterministic heuristic engine ensuring **100% system uptime**.
+- 🧠 **Dual AI Engine Architecture:** Primary analysis powered by Google Gemini 2.5 Flash API, with automatic fallback to a local deterministic heuristic engine so the service still returns an answer if the Gemini API fails.
 - 🔍 **4-Part Diagnostic Output:** Every analysis produces:
   1. **Root Cause:** Exact line and logic flaw breakdown.
   2. **Issue Explanation:** Plain English, developer-friendly explanation.
