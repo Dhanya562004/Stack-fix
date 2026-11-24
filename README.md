@@ -1,4 +1,4 @@
-<div align="center">
+f<div align="center">
 
 # ⚡ StackFix AI — Debugging Assistant SaaS Platform
 
@@ -42,13 +42,13 @@
 
 **StackFix AI** is an enterprise-grade AI debugging SaaS platform designed to analyze programming errors, runtime exceptions, and compiler stack traces across multiple languages (*Python, JavaScript, TypeScript, Java, C++, Go, Rust*).
 
-It pairs Large Language Models (**Google Gemini 1.5 Flash**) with a deterministic heuristic fallback engine, an **AWS S3 cloud storage abstraction layer**, structured Winston logging, and comprehensive automated testing.
+It pairs Large Language Models (**Google Gemini 2.5 Flash**) with a deterministic heuristic fallback engine, an **AWS S3 cloud storage abstraction layer**, structured Winston logging, and comprehensive automated testing.
 
 ---
 
 ## ✨ Key Features
 
-- 🧠 **Dual AI Engine Architecture:** Primary analysis powered by Google Gemini 1.5 Flash API, with seamless automatic fallback to a local deterministic heuristic engine ensuring **100% system uptime**.
+- 🧠 **Dual AI Engine Architecture:** Primary analysis powered by Google Gemini 2.5 Flash API, with seamless automatic fallback to a local deterministic heuristic engine ensuring **100% system uptime**.
 - 🔍 **4-Part Diagnostic Output:** Every analysis produces:
   1. **Root Cause:** Exact line and logic flaw breakdown.
   2. **Issue Explanation:** Plain English, developer-friendly explanation.
