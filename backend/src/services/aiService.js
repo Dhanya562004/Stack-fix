@@ -95,7 +95,7 @@ Respond STRICTLY with a valid JSON object (no markdown formatting, no code block
         ],
         generationConfig: {
           temperature: 0.2,
-          maxOutputTokens: 2048,
+          maxOutputTokens: 8192,
           responseMimeType: "application/json"
         }
       })
