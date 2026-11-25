@@ -299,9 +299,15 @@ Distributed under the **MIT License**. See `LICENSE` for details.
 StackFix AI includes benchmark cases to evaluate its debugging analysis and fallback behavior.
 
 | Benchmark Metric | Result |
-|---|---:|
+|---|---|
 | Total benchmark cases | 14 |
 | Python cases | 8 |
 | JavaScript cases | 6 |
 | Heuristic fallback passed | 1/14 |
-| Gemini benchmark | Pending |
+| Gemini 3.5 Flash Lite – Run 1 | 12/14 |
+| Gemini 3.5 Flash Lite – Run 2 | 13/14 |
+| Gemini 3.5 Flash Lite – Run 3 | 14/14* |
+
+*Run 3 initially scored 13/14. Case 8 initially returned API_ERROR after four HTTP 503 attempts and passed after one permitted rerun.
+
+See [benchmarks/README.md](benchmarks/README.md) for benchmark methodology, pass rules, detailed results, and limitations.
